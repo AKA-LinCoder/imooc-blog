@@ -1,45 +1,20 @@
 <template>
-	<view>
+	<view class="tab-container">
 		<!--
 		1.在父组件中定义样式，数据，指定选中项
 		-->
-		<!-- <scroll-view
-		  id="_scroll"
-		  scroll-x
-		  class="scroll-view"
-		  scroll-with-animation
-		  :scroll-left="scrollLeft"
-		>
-		  <view class="scroll-content">
-		    <view class="tab-item-box">
-		      <block v-for="(item, index) in tabList" :key="index">
-		        <view
-		          class="tab-item"
-		          :id="'_tab_' + index"
-		          :class="{ 'tab-item-active': activeIndex === index }"
-		          @click="tabClick(index)"
-		          :style="{
-		            color:
-		              activeIndex === index ? defaultConfig.activeTextColor : defaultConfig.textColor
-		          }"
-		          >{{ item.name || item }}</view
-		        >
-		      </block>
-		    </view>
-		    <!-- 滑块 -->
-	<!-- 	    <view
-		      class="underLine"
-		      :style="{
-		        transform: 'translateX(' + slider.left + 'px)',
-		        width: defaultConfig.underLineWidth + 'px',
-		        height: defaultConfig.underLineHeight + 'px',
-		        backgroundColor: defaultConfig.underLineColor
-		      }"
-		    />
-		  </view>
-		</scroll-view> 
-		 -->
-		<view>{{tabData}}</view>
+		<view class="tab-box">
+			<scroll-view scroll-x class="scroll-view" scroll-with-animation>
+				<view class="scroll-content">
+					<view class="tab-item-box">
+						<block v-for="(item,index) in tabData" :key="index">
+							<view class="tab-item">{{item.name}}</view>
+						</block>
+					</view>
+				</view>
+			</scroll-view>
+			
+		</view>
 	</view>
 </template>
 
@@ -77,5 +52,40 @@
 </script>
 
 <style lang="scss" scoped>
-
+.tab-container {
+	font-size: 14px;
+	height: 45px;
+	line-height: 15px;
+	background-color: #ccc;
+	.tab-box {
+		width: 100%;
+		height: 45px;
+		display: flex;
+		position: relative;
+		.scroll-view {
+			white-space: nowrap;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			.scroll-content {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				.tab-item-box {
+					height: 100%;
+					.tab-item {
+						height: 100%;
+						display: inline-block;
+						text-align: center;
+						padding: 0 15px;
+						position: relative;
+						color: #333;
+					}
+					
+				}
+			}
+			
+		}
+	}
+}
 </style>
