@@ -6,7 +6,15 @@
 		<image  class="logo" src="@/static/images/logo.png" 
 		mode="aspectFit"></image>
 		<view class="search-box"><my-search placeholderText="hahah"></my-search></view>
-		
+		<!-- tabs -->
+		<view class="tab-sticky">
+		  <my-tabs
+		    :tabData="tabData"
+		    :defaultIndex="currentIndex"
+		    :config="{ textColor: '#333333' }"
+		    @tabClick="tabClick"
+		  ></my-tabs>
+		</view>
 	</view>
 </template>
 <!--定义当前页面逻辑,相当于js.ts-->
@@ -15,7 +23,10 @@
 	export default {
 		data() {
 			return {
-				
+				// tabs 数据源
+				tabData: [],
+				// 当前的切换 index
+				currentIndex: 0,
 			};
 		},
 		//组件配置完成，但DOM未渲染,可以进行数据请求，配置数据
@@ -25,9 +36,20 @@
 		//所有方法必须在methods中
 		methods: {
 			async loadHotTabs(){
-				const res = await getHotTabs();
-				console.log(res);
-			}
+				// const res = await getHotTabs();
+				// console.log(res);
+				var jsonData = require('@/mock/tabs');
+				console.log(`FAKE DATA`);
+				console.log(jsonData);
+				this.tabData = jsonData.dataList;
+			},
+			/* tab item 的点击事件
+			 */
+			tabClick(index) {
+			  this.currentIndex = index;
+			  // 获取列表数据
+			  // this.getHotListFromTab();
+			},
 		}
 	}
 </script>
