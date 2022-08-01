@@ -4,13 +4,19 @@
 		1.在父组件中定义样式，数据，指定选中项
 		-->
 		<view class="tab-box">
-			<scroll-view scroll-x class="scroll-view" scroll-with-animation>
+			<scroll-view :scroll-left="scrollLeft" scroll-x class="scroll-view" scroll-with-animation>
 				<view class="scroll-content">
 					<view class="tab-item-box">
 						<block v-for="(item,index) in tabData" :key="index">
 							<view 
 							:id="'_tab_' + index"
-							class="tab-item" :class="{ 'tab-item-active': activeIndex===index}"
+							class="tab-item" 
+							:style="{
+								color:activeIndex===index? 
+								defaultConfig.activeTextColor:
+								defaultConfig.textColor
+							}"
+							:class="{ 'tab-item-active': activeIndex===index}"
 							@click="onTabClick(index)"
 							
 							>{{item.name}}</view>
@@ -68,8 +74,15 @@
 					//滑块距左侧的距离
 					left:0
 				},
+				//scrollView的横向滚动条位置
+				scrollLeft:0,
 				//默认配置
 				defaultConfig: {
+					//配置默认字体颜色
+					textColor:'#333333',
+					
+					//高亮的字体颜色
+					activeTextColor:'#f94d2a',
 					//下划线宽度
 					underLineWidth:24,
 					//下划线高度
@@ -108,7 +121,16 @@
 				},
 				//当前handler回调会在侦听开始之后立即被调用
 				immediate: true
+			},
+			//监听config
+			config: {
+				handler (val){
+					this.defaultConfig = {...this.defaultConfig,...val};
+				},
+				//当前handler回调会在侦听开始之后立即被调用
+				immediate: true
 			}
+			
 		},
 		methods: {
 			/*
@@ -162,7 +184,9 @@
 					 //拿到tabItem的宽度，tabItem的left,slider的width 
 					 //left = tabItem.left + (tabItem.width- slider.width)/2
 					 left:this.tabList[this.activeIndex].slider.left
-				 }
+				 };
+				 //控制scrollView进行横向滚动
+				 this.scrollLeft = this.activeIndex * this.defaultConfig.underLineWidth;
 			 }
 		}
 	}

@@ -11,7 +11,10 @@
 		  <my-tabs
 		    :tabData="tabData"
 		    :defaultIndex="currentIndex"
-		    :config="{ textColor: '#333333' }"
+		    :config="{ 
+				
+				<!-- textColor: '#00ff00' ,activeTextColor:'#ff00ff' -->
+				}"
 		    @tabClick="tabClick"
 		  ></my-tabs>
 		</view>
