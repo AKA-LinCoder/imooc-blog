@@ -17,6 +17,18 @@
 				}"
 		    @tabClick="tabClick"
 		  ></my-tabs>
+		  <!--list视图-->
+		  <!--
+		  1.使用mock数据，构建list的基本结构
+		  2.美化样式
+		  3.根据tab的切换，获取真实数据
+		  4.渲染真实数据
+		  5.让list具备左右切换的能力
+		  6.完成list与tabs联动的能力
+		  -->
+		  <view>
+			  <hot-list-item v-for="(item,index) in 50" :key="index"></hot-list-item>
+		  </view>
 		</view>
 	</view>
 </template>
